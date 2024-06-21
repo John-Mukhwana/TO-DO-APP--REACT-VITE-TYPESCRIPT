@@ -1,0 +1,140 @@
+:root {
+  --chkBgColor: white;
+  --vh: 1vh;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.body {
+  transition: all .15s ease-in-out;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  min-height: 100vh;
+  height: auto;
+  height: calc(var(--vh) * 100)
+}
+
+// Breakpoints
+
+// 640px, 1024px, 1400px (above)
+$breakpoint-up: (
+  "medium": "40em",
+  "large": "64em",
+  "x-large": "87.5em"
+);
+
+// 639px, 1023px, 1399px (down)
+$breakpoint-down: (
+  "small": "39.937em",
+  "medium": "63.9375em",
+  "large": "87.4375em"
+);
+
+@mixin breakpoint-up($size) {
+  @media (min-width: map-get($breakpoint-up, $size)) {
+    @content
+  }
+}
+
+;
+
+@mixin breakpoint-down($size) {
+  @media (max-width: map-get($breakpoint-down, $size)) {
+    @content
+  }
+}
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translate(-50%, -50%);
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border-radius: 50% !important;
+  background: linear-gradient(var(--chkBgColor), var(--chkBgColor)) padding-box,
+              linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+  border: 1px solid hsl(234, 11%, 52%);
+
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+  border: 1px solid transparent !important;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked~.checkmark {
+  background-color: #2196F3 !important;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after, .checkmark:before {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked~.checkmark:after,input:checked~.checkmark:before {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+.container .checkmark:before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: url("./assets/icon-check.svg") no-repeat center center;
+}
+
+.footer {
+  p {
+    transition: all .15s ease-in-out;
+      cursor: pointer;
+      &.active {
+        color: hsl(220, 98%, 61%);
+        font-weight: 600;
+
+        &:hover {
+          color: hsl(220, 98%, 61%);
+        }
+      }
+  }
+}
